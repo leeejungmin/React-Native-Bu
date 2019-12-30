@@ -14,7 +14,7 @@ import Component6 from './Component6';
 
 
 export default class Component1 extends Component {
-  displayName: 'Component1',
+  displayName: 'Component1'
   /*constructor(props){
     super(props);
     this.state = {

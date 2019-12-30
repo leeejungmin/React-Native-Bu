@@ -8,21 +8,23 @@ import {AppRegistry, Text, View, FlatList, StyleSheet, TextInput, TouchableHighl
 export default class Component5 extends Component {
   constructor(props){
     super(props);
-    this.state ={ isLoading: true, text: ''};
+    this.state ={ isLoading: false, text: ''};
     this.arrayholder = [];
+    this.isLoadings = 'this is working';
   }
 
 // fecth
 componentDidMount(){
-  return fetch('https://jsonplaceholder.typicode.com/users')
+  //return fetch('https://jsonplaceholder.typicode.com/users')
+  return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
     .then((responseJson) => {
 
       this.setState({
         isLoading: false,
-        dataSource: responseJson,
+        dataSource: responseJson.movies,
       }, function(){
-        this.arrayholder = responseJson;
+        this.arrayholder = responseJson.movies;
       });
 
     })
@@ -63,7 +65,8 @@ ListViewItemSeparator = () => {
 
     //  <TouchableHighlight onPress={() => {this.onPress(item).bind(this)}}>
       <View style= {{flex: 1, padding: 20}} >
-        <Text >{item.name} 'is running ther business' {item.company.name} </Text>
+        //<Text >{item.name} 'is running ther business' {item.company.name} </Text>
+        <Text >{item.title} 'is running ther business' {item.releaseYear} </Text>
       </View>
     //  </TouchableHighlight>
   );
@@ -79,7 +82,7 @@ ListViewItemSeparator = () => {
 
     return(
         <View >
-
+      <Text>  'gooododo'</Text>
           <TextInput
          style={styles.textInputStyle}
          onChangeText={text => this.SearchFilterFunction(text)}
