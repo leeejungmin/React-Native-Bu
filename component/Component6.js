@@ -13,7 +13,7 @@ export default class Component6 extends Component {
       name: this.props.user.name,
       email: this.props.user.email,
     }
-  }
+  },
   onPress(){
     //have to bind because we using 'this' here
     this.props.navigator.push({
@@ -36,3 +36,5 @@ export default class Component6 extends Component {
 }
 AppRegistry.registerComponent('Component6', () => Component6);
 //AppRegistry.registerComponent(appName, () => App);
+
+.lo0989iukjm,n nhu767tygfvc dsew4323qwaz``  `1  `\-++-

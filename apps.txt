@@ -14,8 +14,7 @@ import {
   View,
   Text,
   StatusBar,
-  Navigator,
-  Button
+  Navigator
 } from 'react-native';
 
 import {
@@ -26,18 +25,23 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
+const MainNavigator = createStackNavigator({
+  Home: {screen: HomeScreen},
+  Profile: {screen: ProfileScreen},
+});
 
+const App = createAppContainer(MainNavigator);
 
-import { createStackNavigator } from 'react-navigation-stack';
-import Component2 from './component/Component2.js';
-/*
-import {createAppContainer, NavigationScreenProps } from 'react-navigation';
 import Component1 from './component/Component1';
+import Component2 from './component/Component2';
 import Component3 from './component/Component3';
 import Component4 from './component/Component4';
 import Component5 from './component/Component5';
 import Component6 from './component/Component6';
+/*
 renderScene(route, navigator){
   switch (route.id) {
     case 'component5':
@@ -75,35 +79,30 @@ configureScreen={{route,routeStack} => Navigator.SceneConfigs.FloatFrombottom}
       < Component1 />
     </View>
 
-    static navigationOptions = ({navigation}) => ({
-    //  title: 'Home'
-    })
     </>
   );
 };*/
-  class Home extends Component {
+export default class App extends Component {
+  renderScene(route, navigator){
+    switch (route.id) {
+      case 'component5':
+        return (<Component5 navigator={navigator} title="component5"/>);
+      case 'component6':
+        return (<Component6 user={route.user} navigator={navigator} title="component6"/>);
+      }};
 
-    render() {
-      return (
-        <View style={styles.container}>
-          <Text> 'gooodddd Jung!!'</Text>
-          <Button onPress = {() => this.props.navigation.navigate('Xbox')} title="Go to Test"></Button>
-        </View>
-      );
-    }
-  }
-  class Test extends Component {
 
-    render() {
-      return (
-        <View style={styles.container}>
-          <Text> 'dddddddd Jung!!'</Text>
-          <Button onPress = {() => this.props.navigation.navigate('Playstation')} title="Go to App"></Button>
-        </View>
-      );
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text> 'goood Jung!!'</Text>
+        < Component5 />
+      </View>
+    );
   }
-  const styles = StyleSheet.create({
+}
+
+const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
@@ -141,22 +140,3 @@ configureScreen={{route,routeStack} => Navigator.SceneConfigs.FloatFrombottom}
     textAlign: 'right',
   },
 });
-
-// create createStackNavigator
-  /*
-  navigationOptions:  {
-  title: 'HomeisComming'
-  export default  App;
-}
-
-  */
-const RootStack = createStackNavigator({
-  Playstation: { screen: Home, params: { product: 'Playstation' } },
-  Xbox: { screen: Component2, params: { product: 'Xbox' } },
-  });
-
-
-const App = createAppContainer(RootStack);
-//console.warn(App);
-  export default  App ;
-  //AppRegistry.registerComponent('Home', () => App);

@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react';
 import {AppRegistry, Text, View} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 //import {name as appName} from './app.json';
 
 export default class Component2 extends Component {

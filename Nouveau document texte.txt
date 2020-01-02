@@ -1,0 +1,97 @@
+
+
+import React, {Component} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
+  Navigator,
+  Button,
+} from 'react-native';
+import {createAppContainer, NavigationScreenProps } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+//import styles from './component/style.js';
+
+  class Apps extends Component {
+
+    render() {
+      console.warn('hiiiiddd');
+      return (
+        <View style={styles.container}>
+          <View style={styles.case1} />
+          <View style={styles.case2}>
+           <Text> 'goood Jung!!'</Text>
+          </View>
+          <View style={styles.case3}>
+            <View style={styles.case4} />
+            <View style={styles.case5} />
+            <View style={styles.case6} >
+            <Button onPress = {() => this.props.navigation.navigate('Xbox')} title="Go to Test"></Button>
+            </View>
+          </View>
+          
+          
+        </View>
+      );
+    }
+  }
+  class Test extends Component {
+    
+    render() {
+      
+      return (
+        <View >
+          <Text> ' Jung!!'</Text>
+          <Button onPress = {() => this.props.navigation.navigate('Playstation')}
+           title="Go to App"></Button>
+        </View>
+      );
+    }
+  }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  case1: {
+    flex: 1,
+    backgroundColor: 'blue',
+  },
+  case2: {
+    flex: 3,
+    backgroundColor: 'white',
+  },
+  case3: {
+     flex: 1,
+     flexDirection: 'row',
+     justifyContent: 'center',
+     alignItems: 'stretch',
+  },
+  case4: {
+    flex: 1,
+    backgroundColor: 'powderblue',
+  },
+  case5: {
+    flex: 1,
+    backgroundColor: 'skyblue',
+    marginBottom: 10,
+  },
+  case6: {
+    flex: 1,
+    backgroundColor: 'steelblue',
+    borderRadius: 5,
+  },
+});
+
+ const stackN = createStackNavigator({
+  Playstation: { screen: Apps, params: { product: 'Playstation' } },
+  Xbox: { screen: Test, params: { product: 'Xbox' } },
+  });
+ const App = createAppContainer(stackN)
+ export default App ;
+ 
