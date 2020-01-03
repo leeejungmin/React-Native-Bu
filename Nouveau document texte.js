@@ -18,6 +18,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Test1 from './src/component/test';
 import Test2 from './src/component/test2';
 import Test3 from './src/component/test3';
+import Test4 from './src/component/test4';
+import flatListData from './sty/flatlistdata'
 
 class Apps extends Component {
   constructor(props){
@@ -94,22 +96,25 @@ componentDidMount(){
             keyExtractor={item => item.id.toString()}
           />
 
-          <Separator />
+
         </View>
 
         <View style={styles.case3}>
           <View style={styles.case4} >
-          <Icon  name="ios-search" size={70} onPress={() => this.props.navigation.navigate('Test1')}
+          <Icon  name="ios-search" size={40} onPress={() => this.props.navigation.navigate('Test1')}
           style={{marginHorizontal: 30,marginVertical: 10,}}/>
           </View>
           <View style={styles.case5} >
-          <Icon  name="ios-musical-note" size={70} onPress={() => this.props.navigation.navigate('Test2')}
+          <Icon  name="ios-musical-note" size={40} onPress={() => this.props.navigation.navigate('Test2')}
           style={{marginHorizontal: 30,marginVertical: 10,}}/>
           </View>
           <View style={styles.case6}>
-          <Icon  name="ios-sunny" size={70} onPress={() => this.props.navigation.navigate('Test3')}
+          <Icon  name="ios-sunny" size={40} onPress={() => this.props.navigation.navigate('Test3')}
           style={{marginHorizontal: 30,marginVertical: 10,}}/>
-
+          </View>
+          <View style={styles.case7}>
+          <Icon  name="ios-airplane" size={40} onPress={() => this.props.navigation.navigate('Test4')}
+          style={{marginHorizontal: 30,marginVertical: 10,}}/>
           </View>
         </View>
       </View>
@@ -137,7 +142,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   case3: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
@@ -152,6 +157,12 @@ const styles = StyleSheet.create({
     //marginBottom: 10,
   },
   case6: {
+    flex: 1,
+    //backgroundColor: 'steelblue',
+
+    borderRadius: 5,
+  },
+  case7: {
     flex: 1,
     //backgroundColor: 'steelblue',
 
@@ -176,6 +187,7 @@ const stackN = createStackNavigator({
   Test1: { screen: Test1, params: { product: 'Xbox' } },
   Test2: { screen: Test2, params: { product: 'Xbox' } },
   Test3: { screen: Test3, params: { product: 'Xbox' } },
+  Test4: { screen: Test4, params: { product: 'Xbox' } },
 });
 const App = createAppContainer(stackN);
 export default App;
