@@ -19,84 +19,27 @@ import Test1 from './src/component/test';
 import Test2 from './src/component/test2';
 import Test3 from './src/component/test3';
 import Test4 from './src/component/test4';
-import flatListData from './sty/flatlistdata'
+import LoginForm from './src/Login/LoginForm';
+import LoginPage from './src/Login/LoginPage';
+import Register from './src/Login/Register';
+import flatListData from './sty/flatlistdata';
 
 class Apps extends Component {
   constructor(props){
     super(props);
     this.state ={ isLoading: false, text: ''};
     this.arrayholder = [];
-    this.isLoadings = 'this is working';
+
   }
 
-  SearchFilterFunction(text) {
-    //passing the inserted text in textinput
-    const newData = this.arrayholder.filter(function(item) {
-      //applying filter for the inserted text in search bar
-      const itemData = item.name? item.name.toUpperCase() : ''.toUpperCase();
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    this.setState({
-      //setting the filtered newData on datasource
-      //After setting the data it will automatically re-render the view
-      dataSource: newData,
-      text: text,
-    });
-  }
-componentDidMount(){
-  return fetch('https://jsonplaceholder.typicode.com/users')
-  //return fetch('https://facebook.github.io/react-native/movies.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-
-      this.setState({
-        isLoading: false,
-        dataSource: responseJson,
-      }, function(){
-        this.arrayholder = responseJson;
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    });
-}
- //<Text >{item.title} 'is running ther business' {item.releaseYear} </Text>
-  _renderItem = ({item}) => (
-
-  //  <TouchableHighlight onPress={() => {this.onPress(item).bind(this)}}>
-    <View style= {{flex: 1, padding: 20}} >
-      <Text >{item.name} 'is running ther business' {item.company.name} </Text>
-
-    </View>
-  //  </TouchableHighlight>
-);
 
   render() {
     console.warn('hiiiiddd');
     return (
       <View style={styles.container}>
-        <View style={styles.case1} >
-          <TextInput
-         style={styles.textInputStyle}
-         onChangeText={text => this.SearchFilterFunction(text)}
-         value={this.state.text}
-         underlineColorAndroid="transparent"
-         placeholder="Search Here"
-       />
-      </View>
+
         <View style={styles.case2}>
-        <Separator />
-
-          <FlatList
-            data={this.state.dataSource}
-            renderItem={this._renderItem}
-            style={{ marginTop: 10 }}
-            keyExtractor={item => item.id.toString()}
-          />
-
-
+       <Register/>
         </View>
 
         <View style={styles.case3}>
@@ -131,12 +74,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  case1: {
-    flex: 0.5,
-    //backgroundColor: 'blue',
-  },
+
   case2: {
-    flex: 3,
+    flex: 4,
     backgroundColor: 'white',
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -172,13 +112,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-    textInputStyle: {
-    height: 40,
-    borderWidth: 1,
-    paddingLeft: 10,
-    borderColor: '#009688',
-    backgroundColor: '#FFFFFF',
   },
 });
 

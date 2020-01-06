@@ -1,96 +1,59 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   View,
   Text,
-  StatusBar,
   Navigator,
   Button,
+  AppRegistry,
   TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Image,
 } from 'react-native';
+import { createAppContainer, NavigationScreenProps } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import styled from 'styled-components';
+import Icon from 'react-native-vector-icons/Ionicons';
+import LoginForm from './LoginForm';
 
-//import flatListData from './sty/flatlistdata'
 
-export default class Test4 extends Component {
-  constructor(props){
-    super(props);
-    this.state ={ isLoading: false, text: ''};
-    this.arrayholder = [];
-  }
-
+export default class LoginPage extends Component {
   render() {
-    console.warn('hiiiiddd');
     return (
-      <View style={styles.container}>
-        <View style={styles.case1} >
-        <Text>로그인</Text>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image
+          style={styles.logo}
+          source="https://upload.wikimedia.org/wikipedia/commons/5/58/Octocat_GitHub_Mascot.png"
+          />
+        <Text>This is login page  </Text>
+        <Text>Put your information here</Text>
         </View>
-        <Separator />
-        <View style={styles.case2} >
-          <TextInput
-         style={styles.textInputStyle}
-         onChangeText={text => this.text}
-         value={this.state.text}
-         underlineColorAndroid="transparent"
-         placeholder="Search Here"
-       />
-      </View>
-        <View style={styles.case3}></View>
-
-        <View style={styles.case4}></View>
-        <View style={styles.case5}></View>
-        </View>
+          <View style={styles.formContainer}>
+            <LoginForm />
+          </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
-function Separator() {
-  return <View style={styles.separator} />;
-}
-
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#3498db'
   },
-  case1: {
-    flex: 1,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    //backgroundColor: 'blue',
-  },
-  case2: {
-    flex: 3,
-    backgroundColor: 'white',
-  },
-  case3: {
-    flex: 1,
-    flexDirection: 'row',
+  logoContainer: {
+    alignItems: 'center',
+    flexGrow: 1,
     justifyContent: 'center',
-    alignItems: 'stretch',
-  },
-  case4: {
-    flex: 1,
-    //backgroundColor: 'powderblue',
-  },
-  case5: {
-    flex: 1,
-    //backgroundColor: 'skyblue',
-    //marginBottom: 10,
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-    textInputStyle: {
-    height: 40,
-    borderWidth: 1,
-    paddingLeft: 10,
-    borderColor: '#009688',
-    backgroundColor: '#FFFFFF',
-  },
-});
 
-AppRegistry.registerComponent('Test4', () => Test4);
+  },
+  logo:{
+    width:100,
+    height: 100,
+    backgroundColor: '#00ffff',
+  },
+
+})
+AppRegistry.registerComponent('LoginPage', () => LoginPage);
