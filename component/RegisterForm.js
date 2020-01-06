@@ -18,16 +18,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
-export default class Register extends Component {
+export default class LoginForm extends Component {
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
       fullName: '',
-      phoneNumber   : '',
       password: '',
     }
   }
-
   render() {
     return (
       <View style={styles.container}>
@@ -42,7 +40,6 @@ export default class Register extends Component {
         autoCorrect={false}
         keyboardType="email-address"
         onSubmitEditing={() => this.passwordInput.focus()}
-        onChangeText={(fullName) => this.setState({fullName})}
         />
         <TextInput
           placeholder="비밀번호"
@@ -51,23 +48,18 @@ export default class Register extends Component {
           secureTextEntry
           style={styles.input}
           ref={(input) => this.passwordInput = input}
-          onChangeText={(password) => this.setState({password})}
           />
-          <TextInput
-            placeholder="휴대폰번호"
-            placeholderTextColor='#FFF'
-            returnKeyType="go"
-            secureTextEntry
-            style={styles.input}
-            ref={(input) => this.passwordInput = input}
-            onChangeText={(phoneNumber) => this.setState({phoneNumber})}
-            />
           <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>회원가입</Text>
+          <Text style={styles.buttonText}>LOGIN</Text>
           </TouchableOpacity>
-           <TouchableOpacity style={styles.register}>
-          <Text style={styles.reText}>로그인</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+                        onPress={()=> this.props.navigation.navigate('Register', {
+                            screen: 'Register',
+                            info: 'information',
+                        })}
+                        style={styles.register}>
+                        <Text style={{fontSize: 10, textAlign: 'center', color: 'white'}}>로그인 하러가기</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -97,6 +89,8 @@ const styles = StyleSheet.create({
   reText:{
     fontSize:15,
     marginVertical:10,
+    color: '#FFF',
+    fontWeight:'700',
   }
 })
-AppRegistry.registerComponent('Register', () => Register);
+AppRegistry.registerComponent('LoginForm', () => LoginForm);

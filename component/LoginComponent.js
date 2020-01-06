@@ -13,12 +13,19 @@ import {
 } from 'react-native';
 import { createAppContainer, NavigationScreenProps } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import styled from 'styled-components';
+//import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoginForm from './LoginForm';
 
 
 export default class LoginPage extends Component {
+   constructor(props) {
+    super(props);
+    this.state = {
+      fullName: '',
+      password: '',
+    }
+  }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -31,7 +38,7 @@ export default class LoginPage extends Component {
         <Text>Put your information here</Text>
         </View>
           <View style={styles.formContainer}>
-            <LoginForm />
+            <LoginForm  navigation={this.props.navigation} />
           </View>
       </KeyboardAvoidingView>
     );
@@ -53,6 +60,7 @@ const styles = StyleSheet.create({
     width:100,
     height: 100,
     backgroundColor: '#00ffff',
+    marginVertical:10,
   },
 
 })

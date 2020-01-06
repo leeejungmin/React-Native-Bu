@@ -51,32 +51,15 @@ function Separator() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
 
-  case2: {
-    flex: 4,
-    backgroundColor: 'white',
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  case3: {
-    flex: 0.5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-  },
   separator: {
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
-//const createNa = createMaterialBottomTabNavigator({
-export default createMaterialBottomTabNavigator({
+const App = createMaterialBottomTabNavigator({
+//export default createMaterialBottomTabNavigator({
   Test: {
     screen: Test,
     navigationOptions:{
@@ -115,7 +98,7 @@ export default createMaterialBottomTabNavigator({
    }
   },{
     initialRouteName: 'Test',
-    order:['Test', 'Test1'],
+    style: { backgroundColor: 'black' },
     activeTintColor: 'orange',
     inactiveTintColor: 'grey',
     shifting: true,
@@ -123,5 +106,5 @@ export default createMaterialBottomTabNavigator({
   }
 )
 
-const App = createAppContainer(createNa);
+//const App = createAppContainer(createNa);
 export default App;
