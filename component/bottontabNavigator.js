@@ -22,14 +22,15 @@ import Test3 from './src/component/test3';
 import Test4 from './src/component/test4';
 import Check from './src/component/Check';
 import Naver from './src/component/Naver';
+import Receive from './src/component/Receive';
 import LoginForm from './src/Login/LoginForm';
 import LoginPage from './src/Login/LoginPage';
 import Register from './src/Login/Register';
 import flatListData from './sty/flatlistdata';
 import { createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
-import { createMaterialTopTabNavigator} from 'react-navigation';
+//import { createMaterialTopTabNavigator} from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 class Apps extends Component {
   constructor(props){
     super(props);
@@ -93,11 +94,31 @@ const MyDrawerNavigator = createDrawerNavigator({
     }
   },
 });
+/*
+const top = createMaterialTopTabNavigator({
+  Check: { screen: Check, params: { product: 'Playstation' } },
+  Test1: { screen: Test1, params: { product: 'Xbox' } },
+  Register: { screen: Register, params: { product: 'Xbox' },
+              navigationOptions: {
+                  header: null,
+                }, },
+
+},{
+
+  });
+*/
 const Store = createStackNavigator({
   Check: { screen: Check, params: { product: 'Playstation' } },
   Test1: { screen: Test1, params: { product: 'Xbox' } },
-  Register: { screen: Register, params: { product: 'Xbox' } },
-});
+  Register: { screen: Register, params: { product: 'Xbox' },
+              navigationOptions: {
+                  header: null,
+                }, },
+
+},{
+    //mode: 'modal',
+    headerMode: 'none',
+  });
 const createNa = createMaterialBottomTabNavigator({
 //export default createMaterialBottomTabNavigator({
   Test: {
@@ -140,7 +161,7 @@ const createNa = createMaterialBottomTabNavigator({
     }
   },
   Store: {
-    screen: Store,
+    screen: Receive,
     navigationOptions:{
       tabBarLabel: 'Store',
       tabBarIcon: ({ tintColor }) => (
@@ -151,6 +172,9 @@ const createNa = createMaterialBottomTabNavigator({
                 inactiveColor: 'white',
                 barStyle: { backgroundColor: '#f69b31' },
                 hideHeader: true,
+    navigationOptions: ({navigation}) => ({
+              header: null,
+          }),
     }
   },
   LoginPage: {
@@ -216,7 +240,6 @@ const createNa = createMaterialBottomTabNavigator({
 
   }
 )
-
 
 const App = createAppContainer(createNa);
 export default App;
