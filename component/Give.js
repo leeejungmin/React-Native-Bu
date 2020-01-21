@@ -17,7 +17,7 @@ import {
 export default class Receive extends Component {
   constructor(props){
     super(props);
-    this.state ={ isLoading: false, text: ''};
+    this.state ={ isLoading: false, text: '', name:'', email:'ljm3453@gmail.com'};
     this.arrayholder = [];
   }
   SearchFilterFunction(text) {
@@ -35,16 +35,20 @@ export default class Receive extends Component {
       text: text,
     });
   }
+
+  submit(){
+   const data = { first_name: this.state.name, email: this.state.email },
+  };
+
   componentDidMount(){
   return fetch('http://192.168.25.28:3000/jsons',
   {
-    method: 'GET',
-    body: {    "first_name": 'good'   },
+    method: 'POST',
+    body: JSON.stringify(data)
     headers: {
     'Access-Control-Allow-Origin':'*',
     'Content-Type':'application/json'
   }})
-  //return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson)
@@ -78,11 +82,15 @@ export default class Receive extends Component {
        <View style={styles.container}>
           <TextInput
           style={styles.textInputStyle}
-          onChangeText={text => this.SearchFilterFunction(text)}
+          onChangeText={text => this.value(text, 'name')}
           value={this.state.text}
           underlineColorAndroid="transparent"
           placeholder="Search Here"
         />
+        <TouchableHighlight onPress={()=>this.submit()}
+          >
+          <Text>Submit</Text>
+        </TouchableHighlight>
          <View style={styles.case2}>
          <Separator />
 
@@ -129,5 +137,3 @@ export default class Receive extends Component {
  });
 
  AppRegistry.registerComponent('Receive', () => Receive);
-
-  
