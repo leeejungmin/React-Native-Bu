@@ -11,57 +11,52 @@ import {
   Button,
   TextInput,
   FlatList,
-  AppRegistry
+  AppRegistry,
+  TouchableHighlight
 } from 'react-native';
-
-export default class Receive extends Component {
+const obj = { name: "John", age: 30, email: "New York@gmail.com" };
+export default class Give extends Component {
   constructor(props){
     super(props);
     this.state ={ isLoading: false, text: '', name:'', email:'ljm3453@gmail.com'};
     this.arrayholder = [];
   }
-  SearchFilterFunction(text) {
-    //passing the inserted text in textinput
-    const newData = this.arrayholder.filter(function(item) {
-      //applying filter for the inserted text in search bar
-      const itemData = item.name? item.name.toUpperCase() : ''.toUpperCase();
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    this.setState({
-      //setting the filtered newData on datasource
-      //After setting the data it will automatically re-render the view
-      dataSource: newData,
-      text: text,
-    });
-  }
 
-  submit(){
-   const data = { first_name: this.state.name, email: this.state.email },
-  };
-
-  componentDidMount(){
-  return fetch('http://192.168.25.28:3000/jsons',
+  submitAction(){
+  return fetch('http://192.168.25.16:3000/jsonss',
   {
     method: 'POST',
-    body: JSON.stringify(data)
+    body: JSON.stringify(obj),
     headers: {
-    'Access-Control-Allow-Origin':'*',
-    'Content-Type':'application/json'
+    //'Access-Control-Allow-Origin':'*',
+    'Content-Type':'application/json',
+    'Accept': 'application/json',
   }})
+  //return fetch('https://facebook.github.io/react-native/movies.json')
     .then((response) => response.json())
+    .then((response) => {console.log('this is',response);
+    this.dataSource = response;
+    this.setState({function(){
+        this.dataSource = response;
+       // console.log('this is array',this.arrayholder);
+      }});
+
+         console.log('this is array',this.dataSource);
+    })
     .then((responseJson) => {
-      console.log(responseJson)
+      //console.log(responseJson)
       this.setState({
         isLoading: false,
-        dataSource: responseJson,
+        //dataSource: responseJson,
       }, function(){
-        this.arrayholder = responseJson;
+       // this.arrayholder = responseJson;
+       // console.log('this is array',this.arrayholder);
       });
-
+      console.log('kkk',this.dataSource);
     })
     .catch((error) =>{
       console.error(error);
+      console.log('errorr');
     });
   }
   //<Text >{item.title} 'is running ther business' {item.releaseYear} </Text>
@@ -69,8 +64,7 @@ export default class Receive extends Component {
 
   //  <TouchableHighlight onPress={() => {this.onPress(item).bind(this)}}>
     <View style= {{flex: 1, padding: 20}} >
-      <Text >{item.name} 'is running ther business'  </Text>
-
+      <Text >{item.email} 'is running ther business'  </Text>
     </View>
   //  </TouchableHighlight>
   );
@@ -87,13 +81,13 @@ export default class Receive extends Component {
           underlineColorAndroid="transparent"
           placeholder="Search Here"
         />
-        <TouchableHighlight onPress={()=>this.submit()}
-          >
+        <TouchableHighlight onPress={()=>this.submitAction()}
+        style={styles.register}  >
           <Text>Submit</Text>
         </TouchableHighlight>
          <View style={styles.case2}>
          <Separator />
-
+          <Text>{this.state.dataSource}</Text>
            <FlatList
              data={this.state.dataSource}
              renderItem={this._renderItem}
@@ -134,6 +128,13 @@ export default class Receive extends Component {
      borderColor: '#009688',
      backgroundColor: '#FFFFFF',
    },
+   register:{
+   //justifyContent: 'flex-end',
+                           backgroundColor: 'rgb(200,174,198)',
+                           padding: 10,
+                           marginTop: 20,
+                           borderRadius: 30
+ }
  });
 
- AppRegistry.registerComponent('Receive', () => Receive);
+ AppRegistry.registerComponent('Give', () => Give);
