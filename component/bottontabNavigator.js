@@ -26,6 +26,7 @@ import Receive from './src/component/Receive';
 import LoginForm from './src/Login/LoginForm';
 import LoginPage from './src/Login/LoginPage';
 import Register from './src/Login/Register';
+import Loop from './src/Login/Loop';
 import flatListData from './sty/flatlistdata';
 import { createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 //import { createMaterialTopTabNavigator} from 'react-navigation';

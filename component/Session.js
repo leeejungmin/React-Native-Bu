@@ -8,6 +8,7 @@ import {
   AppRegistry,
   SafeAreaView,
   AsyncStorage,
+  TouchableHighlight,
 } from 'react-native';
 import { createAppContainer, NavigationScreenProps } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -18,72 +19,101 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Test extends Component {
 
-
-
-_saveData = () => {
-
-const data = "Jungmin";
-
-AsyncStorage.setItem('data', data);
-
-}
-
-_saveDatas = () => {
-    const obj = {
-
-'name':'hide',
-
-'phone':'010-1234-5678',
-
-'dept':'computer'
-
-}
-
-AsyncStorage.setItem('obj', JSON.stringify(obj));
-
-}
-
-
-_removeData = () => {
-  AsyncStorage.removeItem('data');
-}
-
-_touchevent = () =>{
-  console.log('This is event');
-}
-
-_retrieveData = async () => {
-  try {
-    const value = await AsyncStorage.getItem('data');
-    if (value !== null) {
-      // We have data!!
-      console.log(value);
-    }
-    if(value == null){
-      console.log('this is expired');
-    }
-  } catch (error) {
-    // Error retrieving data
-    console.log(error);
+  constructor(props){
+          super(props);
+          this.state={
+              show:false
+          }
   }
-};
 
-_retrieveDatas = async () => {
-  try {
-    const value = await AsyncStorage.getItem('obj',(err, result,store) => {
+  _saveData = () => {
 
-    });
-    if (value !== null) {
-      // We have data!!
-      let json = JSON.parse(value);
-      console.log(json['name']);
-    }
+  const data = true;
 
-  } catch (error) {
-    // Error retrieving data
-    console.log(error);
+  AsyncStorage.setItem('data', data);
+
   }
-};
+
+  _saveDatas = () => {
+      const obj = {
+
+  'name':'hide',
+
+  'phone':'010-1234-5678',
+
+  'dept':'computer'
+
+  }
+
+  AsyncStorage.setItem('obj', JSON.stringify(obj));
+
+  }
+
+
+  _removeData = () => {
+
+     AsyncStorage.removeItem('data').then((check) => {
+      if (check!=true) {
+        this.setState({show:false})
+      } else {
+        console.log('No user yet Created');
+      }
+  })
+
+  }
+
+  _touchevent = () =>{
+    console.log('This is event');
+  }
+
+  _retrieveData = async () => {
+    try {
+
+       AsyncStorage.getItem('data').then((check) => {
+      if (check) {
+        this.setState({show:true})
+      } else {
+        console.log('this token is expired');
+      }
+        })
+
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
+  _retrieveDatas = async () => {
+    try {
+      const value = await AsyncStorage.getItem('obj',(err, result,store) => {
+
+      });
+      if (value !== null) {
+        // We have data!!
+        let json = JSON.parse(value);
+        console.log(json['name']);
+      }
+
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+  };
+
+renderTouchableHighlight(){
+    if(this.state.show){
+       return(
+           <TouchableHighlight
+               style={{borderColor:'black',borderWidth:1,marginTop:20}}
+               onPress={this.hideCancel}>
+               <View>
+                   <Text>Cancel</Text>
+               </View>
+           </TouchableHighlight>
+       )
+    }
+    return null;
+}
 
   render() {
     console.log('this is navigation'+this.props.navigation);
@@ -121,6 +151,8 @@ _retrieveDatas = async () => {
        //onPress={() => this.props.navigation.navigate('Test2')}
        title="SeeJson"
      />
+       {this.renderTouchableHighlight()}
+       {this.state.show?'good':'job'}
       </View>
       </SafeAreaView>
 
