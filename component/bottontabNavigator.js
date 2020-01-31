@@ -21,12 +21,12 @@ import Test2 from './src/component/test2';
 import Test3 from './src/component/test3';
 import Test4 from './src/component/test4';
 import Check from './src/component/Check';
-import Naver from './src/component/Naver';
+import GoogleMap from './src/component/GoogleMap';
+import Loop from './src/component/Loop';
 import Receive from './src/component/Receive';
 import LoginForm from './src/Login/LoginForm';
 import LoginPage from './src/Login/LoginPage';
 import Register from './src/Login/Register';
-import Loop from './src/Login/Loop';
 import flatListData from './sty/flatlistdata';
 import { createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 //import { createMaterialTopTabNavigator} from 'react-navigation';
@@ -135,10 +135,10 @@ const createNa = createMaterialBottomTabNavigator({
                 barStyle: { backgroundColor: '#f69b31' },
     }
   },
-  Test2: {
-    screen: Test2,
+  Loop: {
+    screen: Loop,
     navigationOptions:{
-      tabBarLabel: 'Test2',
+      tabBarLabel: 'Loop',
       tabBarIcon: ({ tintColor }) => (
                     <View>
                         <Icon style={[{color: tintColor}]} size={25} name={'ios-sunny'}/>
@@ -206,8 +206,8 @@ const createNa = createMaterialBottomTabNavigator({
     }
 
   },*/
-  Naver:{
-    screen: Naver,
+  GoogleMap:{
+    screen: GoogleMap,
     navigationOptions:{
       tabBarIcon: ({ tintColor }) => (
                     <View>
