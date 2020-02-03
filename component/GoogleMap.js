@@ -13,6 +13,12 @@ class ContactInfo extends React.Component {
 }
 
 class ContactInfos extends React.Component {
+ handleMarkerPress(event) {
+
+  const markerID = event ;
+  console.log(markerID);
+  console.log('jungmin!!!');
+}
 
     render() {
         return(
@@ -20,20 +26,26 @@ class ContactInfos extends React.Component {
             coordinate={{latitude: this.props.latitude, longitude: this.props.longitude}}
             title={this.props.name}
             description={this.props.name}
+            key = {this.props.name}
+            identifier={this.props.key}
+            //identifier={index.toString()}
             color="blue"
             draggable
+            onPress={() => this.handleMarkerPress(this.props.name)}
+            //onPress={(event) => console.log(event),event.id = 'jungmin' ; this.handleMarkerPress(event)}
           >
           <Image  source={{
               uri:this.props.imageUrl
                 }}
-              style={{ width: 50, height: 50 }}
+              style={{ width: 50, height: 50, borderRadius: 9,borderColor: 'gray', }}
+
               />
           </Marker>
         );
     }
 }
 
-export default class GoogleMap extends React.Component {
+export default class handleMarkerPress extends React.Component {
   constructor(){
   super();
 
@@ -57,7 +69,7 @@ export default class GoogleMap extends React.Component {
         }}>
 
         {mapData.map((contact, i) => {
-                          console.log(contact)
+                          //console.log(contact)
                           return (<ContactInfos name={contact.name}
                                             latitude={contact.latitude}
                                             longitude={contact.longitude}

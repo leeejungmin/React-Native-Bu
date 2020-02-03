@@ -109,23 +109,23 @@ const top = createMaterialTopTabNavigator({
   });
 */
 const Store = createStackNavigator({
+  LoginPage: { screen: LoginPage, params: { product: 'Xbox' } },
   Check: { screen: Check, params: { product: 'Playstation' } },
-  Test1: { screen: Test1, params: { product: 'Xbox' } },
   Register: { screen: Register, params: { product: 'Xbox' },
               navigationOptions: {
-                  header: null,
+                  //header: null,
                 }, },
 
 },{
     //mode: 'modal',
-    headerMode: 'none',
+   // headerMode: 'none',
   });
 const createNa = createMaterialBottomTabNavigator({
 //export default createMaterialBottomTabNavigator({
   Test: {
-    screen: Test,
+    screen: GoogleMap,
     navigationOptions:{
-      tabBarLabel: 'Home',
+      tabBarLabel: 'GoogleMap',
       tabBarIcon: ({ tintColor }) => (
                     <View>
                         <Icon style={[{color: tintColor}]} size={25} name={'ios-home'}/>
@@ -162,7 +162,7 @@ const createNa = createMaterialBottomTabNavigator({
     }
   },
   Store: {
-    screen: Receive,
+    screen: Store,
     navigationOptions:{
       tabBarLabel: 'Store',
       tabBarIcon: ({ tintColor }) => (
@@ -179,7 +179,7 @@ const createNa = createMaterialBottomTabNavigator({
     }
   },
   LoginPage: {
-    screen: LoginPage,
+    screen: Test1,
     navigationOptions:{
       tabBarLabel: 'LoginPage',
      tabBarIcon: ({ tintColor }) => (
@@ -206,7 +206,7 @@ const createNa = createMaterialBottomTabNavigator({
     }
 
   },*/
-  GoogleMap:{
+  /*GoogleMap:{
     screen: GoogleMap,
     navigationOptions:{
       tabBarIcon: ({ tintColor }) => (
@@ -219,7 +219,7 @@ const createNa = createMaterialBottomTabNavigator({
      // header: <NavigationDrawerStructure navigationProps={navigation} />,
     }
 
-  },
+  },*/
   /*Register: {
     screen: Register,
     navigationOptions:{
