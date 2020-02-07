@@ -21,12 +21,16 @@ import Test2 from './src/component/test2';
 import Test3 from './src/component/test3';
 import Test4 from './src/component/test4';
 import Check from './src/component/Check';
+import Register from './src/component/Login/Register';
+
+import LoginPage from './src/component/Login/LoginPage';
+
 import GoogleMap from './src/component/GoogleMap';
 import Loop from './src/component/Loop';
 import Receive from './src/component/Receive';
-import LoginForm from './src/Login/LoginForm';
-import LoginPage from './src/Login/LoginPage';
-import Register from './src/Login/Register';
+
+
+
 import flatListData from './sty/flatlistdata';
 import { createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 //import { createMaterialTopTabNavigator} from 'react-navigation';
@@ -68,19 +72,7 @@ const styles = StyleSheet.create({
   },
 });
 const MyDrawerNavigator = createDrawerNavigator({
-  Register: {
-    screen: Register,
-    navigationOptions:{
-      tabBarLabel: 'LoginPage',
-     tabBarIcon: ({ tintColor }) => (
-                    <View>
-                        <Icon style={[{color: tintColor}]}  size={25} name={'ios-cloud'}/>
-                    </View>),
-                activeColor: '#f60c0d',
-                inactiveColor: 'white',
-                barStyle: { backgroundColor: '#f69b31' },
-    }
-  },
+
   Test2: {
     screen: Test2,
     navigationOptions:{
@@ -109,12 +101,10 @@ const top = createMaterialTopTabNavigator({
   });
 */
 const Store = createStackNavigator({
-  LoginPage: { screen: LoginPage, params: { product: 'Xbox' } },
+
   Check: { screen: Check, params: { product: 'Playstation' } },
-  Register: { screen: Register, params: { product: 'Xbox' },
-              navigationOptions: {
-                  //header: null,
-                }, },
+  LoginPage: { screen: LoginPage, params: { product: 'Playstation' } },
+  Register: { screen: Register, params: { product: 'Playstation' } },
 
 },{
     //mode: 'modal',
@@ -179,51 +169,9 @@ const createNa = createMaterialBottomTabNavigator({
     }
   },
   LoginPage: {
-    screen: Test1,
+    screen: LoginPage,
     navigationOptions:{
-      tabBarLabel: 'LoginPage',
-     tabBarIcon: ({ tintColor }) => (
-                    <View>
-                        <Icon style={[{color: tintColor}]} size={25} name={'ios-cloud'}/>
-                    </View>),
-                activeColor: '#f60c0d',
-                inactiveColor: 'white',
-
-                barStyle: { backgroundColor: '#f69b31' },
-    }
-  },
-  /*Register:{
-    screen: MyDrawerNavigator,
-    navigationOptions:{
-      tabBarIcon: ({ tintColor }) => (
-                    <View>
-                        <Icon style={[{color: tintColor}]} onPress={() => this.props.navigation.toggleDrawer().bind(this)} size={25} name={'ios-person'}/>
-                    </View>),
-                     activeColor: '#f60c0d',
-                inactiveColor: 'white',
-                barStyle: { backgroundColor: '#f69b31' },
-      header: <NavigationDrawerStructure navigationProps={navigation} />,
-    }
-
-  },*/
-  /*GoogleMap:{
-    screen: GoogleMap,
-    navigationOptions:{
-      tabBarIcon: ({ tintColor }) => (
-                    <View>
-                        <Icon style={[{color: tintColor}]}  size={25} name={'ios-person'}/>
-                    </View>),
-                     activeColor: '#f60c0d',
-                inactiveColor: 'white',
-                barStyle: { backgroundColor: '#f69b31' },
-     // header: <NavigationDrawerStructure navigationProps={navigation} />,
-    }
-
-  },*/
-  /*Register: {
-    screen: Register,
-    navigationOptions:{
-                tabBarLabel:'Profile',
+                tabBarLabel:'LoginPage',
                 tabBarIcon: ({ tintColor }) => (
                     <View>
                         <Icon style={[{color: tintColor}]} size={25} name={'ios-person'}/>
@@ -234,7 +182,8 @@ const createNa = createMaterialBottomTabNavigator({
                headerShown: false,
                header: null,
             }
-   }*/
+   }
+
   },{
     initialRouteName: 'Test',
     shifting: true,

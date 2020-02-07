@@ -1,8 +1,24 @@
 import React from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, Image, FlatList } from 'react-native';
+import { Alert, TouchableHighlight ,Modal ,StyleSheet, Text, View, Dimensions, Image, FlatList,TouchableOpacity,ScrollView } from 'react-native';
 import flatListData from './../../sty/flatlistdata';
 import mapData from './../../sty/mapData';
+import ModalExample from './Modal';
+import Test from './test';
+import RBSheet from "react-native-raw-bottom-sheet";
+
+
+class FlatListItem extends React.Component{
+
+    render() {
+      console.log(this.props.item.imageUrl);
+        return(
+          <TouchableOpacity >
+              <Image source={{uri:this.props.item.imageUrl}} style={styles.photo} resizeMode='cover'></Image>
+          </TouchableOpacity>
+        );
+    }
+}
 
 class ContactInfo extends React.Component {
     render() {
@@ -13,12 +29,12 @@ class ContactInfo extends React.Component {
 }
 
 class ContactInfos extends React.Component {
- handleMarkerPress(event) {
+    handleMarkerPress(event) {
 
-  const markerID = event ;
-  console.log(markerID);
-  console.log('jungmin!!!');
-}
+      const markerID = event ;
+      console.log(markerID);
+      console.log('jungmin!!!');
+    }
 
     render() {
         return(
@@ -38,7 +54,6 @@ class ContactInfos extends React.Component {
               uri:this.props.imageUrl
                 }}
               style={{ width: 50, height: 50, borderRadius: 9,borderColor: 'gray', }}
-
               />
           </Marker>
         );
@@ -46,19 +61,52 @@ class ContactInfos extends React.Component {
 }
 
 export default class handleMarkerPress extends React.Component {
-  constructor(){
-  super();
+  constructor(props){
+      super(props);
 
-  this.state={
-  url:'https://images.unsplash.com/photo-1436891436013-5965265af5fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  url_1:'https://images.unsplash.com/photo-1516936451219-1b6a23b2df2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  url_2:'https://images.unsplash.com/photo-1492463104320-56094d69c6c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
+      this.state={
+        modalVisible: false,
+        just:'goooddJungmin',
+        url:'https://images.unsplash.com/photo-1436891436013-5965265af5fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+        url_1:'https://images.unsplash.com/photo-1516936451219-1b6a23b2df2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+        url_2:'https://images.unsplash.com/photo-1492463104320-56094d69c6c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
+          }
+      }
+
+
+
+  renderItem(data) {
+    console.log('this is data',data);
+      return (
+        <View>
+          <TouchableOpacity style={styles.button} onPress={() => this[RBSheet].open()}>
+            <Text style={styles.buttonText}>ITEM </Text>
+          </TouchableOpacity>
+          <RBSheet
+            ref={ref => {
+              this[RBSheet ] = ref;
+            }}
+          >
+           <ScrollView horizontal={true}>
+              <View style={styles.bottomSheetContainer}>
+
+              {data.map((contact, i) => {
+                            console.log(contact)
+                            return (<FlatListItem item={contact}  key={i} />);
+                        })}
+
+              </View>
+            </ScrollView>
+          </RBSheet>
+        </View>
+      );
     }
-  }
+
   render() {
-     console.log(mapData);
+     //console.log(mapData);
     return (
       <View style={styles.container}>
+        <View style={{flex:1}}>
         <MapView
         style={styles.mapStyle}
         initialRegion={{
@@ -78,8 +126,10 @@ export default class handleMarkerPress extends React.Component {
                                   />);
                       })}
       </MapView>
-
-
+      </View>
+      <View style={{flex:1}}>
+      {this.renderItem(flatListData)}
+      </View>
       </View>
 
     );
@@ -96,5 +146,29 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+
+
+  button: {
+    backgroundColor: "#4EB151",
+    paddingVertical: 10,
+    alignItems: "center",
+    borderRadius: 3,
+    marginTop: 20
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 16
+  },
+  bottomSheetContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    //justifyContent: "center",
+    alignItems: "center"
+  },
+  photo:{
+    width: 180,
+    height: 180,
+    marginHorizontal: 10,
   },
 });
