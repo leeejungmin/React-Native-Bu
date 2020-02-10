@@ -18,6 +18,7 @@
  						];
   
   app.post('/jsonss', function(req, res, next) {
+    console.log('jungmin!!!');
   	console.log(req);
     var name = req.body.name;
     var email = req.body.email;

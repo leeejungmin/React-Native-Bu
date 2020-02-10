@@ -12,8 +12,9 @@ import {
   FlatList,
   AppRegistry,
   TouchableHighlight,
+  Image,
 } from 'react-native';
-const obj = { name: 'John', age: 30, email: 'New York@gmail.com' };
+const obj = { name: 'John', age: 30, email: 'New York@gmail.com', clothes:'clothes' };
 //const obj = {"name":"LEEEEJungmin!!!!", "email":"ljm3453@gmail.com"};
 
 export default class Give extends Component {
@@ -30,7 +31,7 @@ export default class Give extends Component {
 
   submitAction() {
     return (
-      fetch('http://192.168.25.23:3000/jsonss', {
+      fetch('http://172.21.4.126:3000/jsonss', {
         method: 'POST',
         body: JSON.stringify(obj),
         headers: {
@@ -78,7 +79,8 @@ export default class Give extends Component {
 
     //  <TouchableHighlight onPress={() => {this.onPress(item).bind(this)}}>
     <View style={{ flex: 1, padding: 20 }}>
-      <Text>{item.email} 'is running ther business' </Text>
+      <Text>' cloth name is ' {item.Cloth_n}  </Text>
+      <Image source={{uri:item.url}} style={styles.photo} resizeMode='cover'></Image>
     </View>
     //  </TouchableHighlight>
   );
@@ -107,7 +109,7 @@ export default class Give extends Component {
               data={this.arrayholder}
               renderItem={this._renderItem}
               style={{ marginTop: 10 }}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={(item, index) =>console.log(item) }
             />
           </View>
         </View>
@@ -146,6 +148,11 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
     borderRadius: 30,
+  },
+   photo:{
+    width: 180,
+    height: 180,
+    marginHorizontal: 10,
   },
 });
 

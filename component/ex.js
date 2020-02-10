@@ -10,11 +10,11 @@ import RBSheet from "react-native-raw-bottom-sheet";
 
 class FlatListItem extends React.Component{
 
-    render() {
-      //console.log(this.props.item.imageUrl);
+    render(){
+      console.log('this is for flatlist', this.props.item)
         return(
           <TouchableOpacity >
-              <Image source={{uri:this.props.item.imageUrl}} style={styles.photo} resizeMode='cover'></Image>
+              <Image source={{uri:this.props.item}} style={styles.photo} resizeMode='cover'></Image>
           </TouchableOpacity>
         );
     }
@@ -33,11 +33,61 @@ class ContactInfos extends React.Component {
       super(props);
       this.state={
         just:'JUNGMIN',
+        obj:''
       }
+      this.arrayholder = [];
+    }
+
+    submitAction() {
+      return (
+        fetch('http://172.21.4.126:3000/jsonss', {
+          method: 'POST',
+          body: JSON.stringify(obj),
+          headers: {
+            //'Access-Control-Allow-Origin':'*',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        })
+          .then(response => response.json())
+          .then(response => {
+            console.log('this is', response);
+            this.dataSource = response;
+            this.setState({
+              function() {
+                //this.arrayholder = this.dataSource;
+
+              },
+            });
+            this.arrayholder = this.dataSource;
+            console.log('this is array', this.dataSource);
+          })
+          .then(responseJson => {
+            //console.log(responseJson)
+            this.setState(
+              {
+                isLoading: false,
+                //dataSource: responseJson,
+              },
+              function() {
+                // this.arrayholder = responseJson;
+                // console.log('this is array',this.arrayholder);
+              }
+            );
+            console.log('kkk', this.arrayholder);
+          })
+          .catch(error => {
+            console.error(error);
+            console.log('errorr why?????');
+          })
+      );
+
     }
 
     handleMarkerPress(event) {
       //this.setModalVisible(!this.state.modalVisible);
+      this.submitAction();
+      this.setState({ obj: event });
       const markerID = event ;
       console.log(markerID);
       console.log('jungmin!!!');
@@ -55,8 +105,8 @@ class ContactInfos extends React.Component {
             //identifier={index.toString()}
             color="blue"
             draggable
-            onPress={() => this.handleMarkerPress(this.props.name)}
-            //onPress={(event) => console.log(event),event.id = 'jungmin' ; this.handleMarkerPress(event)}
+            onPress={() => this.handleMarkerPress(this.props.imageUrl)}
+            //onPress={() => this.handleMarkerPress(this.props.name)}
           >
           <Image  source={{
               uri:this.props.imageUrl
@@ -74,20 +124,30 @@ export default class handleMarkerPress extends React.Component {
 
       this.state={
         modalVisible: false,
-        just:'goooddJungmin',
+        just:[],
         url:'https://images.unsplash.com/photo-1436891436013-5965265af5fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
         url_1:'https://images.unsplash.com/photo-1516936451219-1b6a23b2df2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
         url_2:'https://images.unsplash.com/photo-1492463104320-56094d69c6c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
           }
+
       }
 
 
+  getInitialState = () => ({
+    //commit
+  })
 
   renderItem(data) {
     //console.log('this is data',data);
-    console.log('this is resheet',this[RBSheet],data);
-    this[RBSheet].open()
-     this.setState({just:data})
+    var joinedR = [] ;
+    this.setState({ just: joinedR });
+    console.log('this is resheet',this.state.just,data);
+    this[RBSheet].open();
+    //this is for join by push
+    var joined = this.state.just.concat(data);
+    //var joined = this.state.just.push(data);
+    console.log('this is after',this.state.just);
+    this.setState({ just: joined });
     }
 
   render() {
@@ -105,7 +165,7 @@ export default class handleMarkerPress extends React.Component {
         }}>
 
         {mapData.map((contact, i) => {
-                          //console.log(contact)
+                         // console.log(contact)
                           return (<ContactInfos name={contact.name}
                                             latitude={contact.latitude}
                                             longitude={contact.longitude}
@@ -116,44 +176,27 @@ export default class handleMarkerPress extends React.Component {
                                             parentReference = {this.renderItem.bind(this)}
                                   />);
                       })}
-      </MapView>
-      </View>
-      <View style={{flex:1}}>
+        </MapView>
+        </View>
+              <View style={{flex:1}}>
               <View>
-          <RBSheet
-            ref={ref => {
+              <RBSheet
+              ref={ref => {
               this[RBSheet] = ref;
-            }}
-          >
-           <ScrollView horizontal={true}>
+              }}
+              >
+              <ScrollView horizontal={true}>
               <View style={styles.bottomSheetContainer}>
-                  <Text>{this.state.just}</Text>
 
+              {this.state.just.map((contact, i) => {
+                            console.log('this is', contact)
+                            return (<FlatListItem item={contact}  key={i} />);
+                        })}
 
               </View>
             </ScrollView>
           </RBSheet>
         </View>
-      <Modal
-         animationType="slide"
-         transparent={false}
-         visible={this.state.modalVisible}
-         onRequestClose={() => {
-           Alert.alert('Modal has been closed.');
-         }}>
-         <View style={{marginTop: 22}}>
-           <View>
-             <Text>Hello World!</Text>
-
-             <TouchableHighlight
-               onPress={() => {
-                 this.setModalVisible(!this.state.modalVisible);
-               }}>
-               <Text>Hide Modal</Text>
-             </TouchableHighlight>
-           </View>
-         </View>
-       </Modal>
       </View>
       </View>
 

@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 var url = 'mongodb://localhost:27017';
 var db;
 var collection;
-
+var JSONData;
 
 
 MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, client ,database, docs) {
@@ -35,8 +35,9 @@ MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, func
     var query = {"Cloth_n": 'Clothes'};
  //부분 검색
     collection.find(query).toArray(function (err, docs) {
-           console.log('== Find by query');
-           console.log(docs);
+           //console.log('== Find by query');
+           JSONData = JSON.stringify(docs);
+           console.log(JSONData);
         });
   
    });
