@@ -1,242 +1,98 @@
-import React from 'react';
-import MapView, {Marker} from 'react-native-maps';
-import { Alert, TouchableHighlight ,Modal ,StyleSheet, Text, View, Dimensions, Image, FlatList,TouchableOpacity,ScrollView } from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Navigator,
+  Button,
+  AppRegistry,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  SafeAreaView,
+  Separator
+} from 'react-native';
+
+
+import Icon from 'react-native-vector-icons/Ionicons';
 import flatListData from './../../sty/flatlistdata';
-import mapData from './../../sty/mapData';
-import ModalExample from './Modal';
-import Test from './test';
-import RBSheet from "react-native-raw-bottom-sheet";
-
-
-class FlatListItem extends React.Component{
-
-    render(){
-      console.log('this is for flatlist', this.props.item)
-        return(
-          <TouchableOpacity >
-              <Image source={{uri:this.props.item}} style={styles.photo} resizeMode='cover'></Image>
-          </TouchableOpacity>
-        );
-    }
-}
+import testData from './../../sty/testData';
 
 class ContactInfo extends React.Component {
     render() {
+      //console.log(this.props.url)
         return(
-            <Text>{this.props.name}  ::::    {this.props.foodDescription}</Text>
+          <View>
+          <Text>{this.props.name}  ::::    {this.props.foodDescription}</Text>
+          <Image source={{uri:this.props.url}} style={styles.photo} resizeMode='cover'></Image>
+          </View>
         );
     }
 }
 
-class ContactInfos extends React.Component {
+export default class Loop extends Component {
   constructor(props){
-      super(props);
-      this.state={
-        just:'JUNGMIN',
-        obj:''
-      }
-      this.arrayholder = [];
-    }
+    super(props);
+    this.state ={ isLoading: false, text: ''};
+    this.arrayholder = [];
 
-    submitAction() {
-      return (
-        fetch('http://172.21.4.126:3000/jsonss', {
-          method: 'POST',
-          body: JSON.stringify(obj),
-          headers: {
-            //'Access-Control-Allow-Origin':'*',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-        })
-          .then(response => response.json())
-          .then(response => {
-            console.log('this is', response);
-            this.dataSource = response;
-            this.setState({
-              function() {
-                //this.arrayholder = this.dataSource;
-
-              },
-            });
-            this.arrayholder = this.dataSource;
-            console.log('this is array', this.dataSource);
-          })
-          .then(responseJson => {
-            //console.log(responseJson)
-            this.setState(
-              {
-                isLoading: false,
-                //dataSource: responseJson,
-              },
-              function() {
-                // this.arrayholder = responseJson;
-                // console.log('this is array',this.arrayholder);
-              }
-            );
-            console.log('kkk', this.arrayholder);
-          })
-          .catch(error => {
-            console.error(error);
-            console.log('errorr why?????');
-          })
-      );
-
-    }
-
-    handleMarkerPress(event) {
-      //this.setModalVisible(!this.state.modalVisible);
-      this.submitAction();
-      this.setState({ obj: event });
-      const markerID = event ;
-      console.log(markerID);
-      console.log('jungmin!!!');
-      this.props.parentReference(event);
-    }
-
-    render() {
-        return(
-          <Marker
-            coordinate={{latitude: this.props.latitude, longitude: this.props.longitude}}
-            title={this.props.name}
-            description={this.props.name}
-            key = {this.props.name}
-            identifier={this.props.key}
-            //identifier={index.toString()}
-            color="blue"
-            draggable
-            onPress={() => this.handleMarkerPress(this.props.imageUrl)}
-            //onPress={() => this.handleMarkerPress(this.props.name)}
-          >
-          <Image  source={{
-              uri:this.props.imageUrl
-                }}
-              style={{ width: 50, height: 50, borderRadius: 9,borderColor: 'gray', }}
-              />
-          </Marker>
-        );
-    }
-}
-
-export default class handleMarkerPress extends React.Component {
-  constructor(props){
-      super(props);
-
-      this.state={
-        modalVisible: false,
-        just:[],
-        url:'https://images.unsplash.com/photo-1436891436013-5965265af5fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-        url_1:'https://images.unsplash.com/photo-1516936451219-1b6a23b2df2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-        url_2:'https://images.unsplash.com/photo-1492463104320-56094d69c6c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
-          }
-
-      }
-
-
-  getInitialState = () => ({
-    //commit
-  })
-
-  renderItem(data) {
-    //console.log('this is data',data);
-    var joinedR = [] ;
-    this.setState({ just: joinedR });
-    console.log('this is resheet',this.state.just,data);
-    this[RBSheet].open();
-    //this is for join by push
-    var joined = this.state.just.concat(data);
-    //var joined = this.state.just.push(data);
-    console.log('this is after',this.state.just);
-    this.setState({ just: joined });
-    }
+  }
 
   render() {
-     //console.log(mapData);
     return (
-      <View style={styles.container}>
-        <View style={{flex:1}}>
-        <MapView
-        style={styles.mapStyle}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}>
 
-        {mapData.map((contact, i) => {
-                         // console.log(contact)
-                          return (<ContactInfos name={contact.name}
-                                            latitude={contact.latitude}
-                                            longitude={contact.longitude}
+      <SafeAreaView style={{marginTop:50, flex:1}}>
 
-                                            imageUrl={contact.imageUrl}
-                                            key={i}
-                                            onRef={ref => (this.renderItem = ref)}
-                                            parentReference = {this.renderItem.bind(this)}
-                                  />);
-                      })}
-        </MapView>
-        </View>
-              <View style={{flex:1}}>
-              <View>
-              <RBSheet
-              ref={ref => {
-              this[RBSheet] = ref;
-              }}
-              >
-              <ScrollView horizontal={true}>
-              <View style={styles.bottomSheetContainer}>
+        {testData.map((contact, i) => {
+                        return (<ContactInfo name={contact.Store_n}
+                                             foodDescription={contact.desc}
+                                             url={contact.url}
+                                             key={i}
+                                 />);
+                    })}
 
-              {this.state.just.map((contact, i) => {
-                            console.log('this is', contact)
-                            return (<FlatListItem item={contact}  key={i} />);
-                        })}
+      <FlatList
+        data={testData}
+        renderItem={({ item }) => (
+            <View>
+          <Text>{item.Store_n}  ::::    {item.desc}</Text>
+          <Image source={{uri:item.url}} style={styles.photo} resizeMode='cover'></Image>
+          </View>
+        )}
+        keyExtractor={item => item.id}
 
-              </View>
-            </ScrollView>
-          </RBSheet>
-        </View>
-      </View>
-      </View>
+      />
+
+      </SafeAreaView>
 
     );
   }
 }
 
+
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
 
-
-  button: {
-    backgroundColor: "#4EB151",
-    paddingVertical: 10,
-    alignItems: "center",
-    borderRadius: 3,
-    marginTop: 20
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16
-  },
-  bottomSheetContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    //justifyContent: "center",
-    alignItems: "center"
-  },
-  photo:{
+    textInputStyle: {
+    height: 40,
+    borderWidth: 1,
+    paddingLeft: 10,
+    borderColor: 'pink',
+    borderStyle : 'solid',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 5,
+    },
+    separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+     photo:{
     width: 180,
     height: 180,
     marginHorizontal: 10,
-  },
-});
+    },
+  });
+
+AppRegistry.registerComponent('Loop', () => Loop);

@@ -21,11 +21,12 @@ import testData from './../../sty/testData';
 
 class ContactInfo extends React.Component {
     render() {
+      //console.log(this.props.url)
         return(
-            <Text>{this.props.name}  ::::    {this.props.foodDescription}</Text>
-            <TouchableOpacity >
-            <Image source={{uri:this.props.url}} style={styles.photo} resizeMode='cover'></Image>
-            </TouchableOpacity>
+          <View>
+          <Text>{this.props.name}  ::::    {this.props.foodDescription}</Text>
+          <Image source={{uri:this.props.url}} style={styles.photo} resizeMode='cover'></Image>
+          </View>
         );
     }
 }
@@ -42,13 +43,27 @@ export default class Loop extends Component {
     return (
 
       <SafeAreaView style={{marginTop:50, flex:1}}>
+
         {testData.map((contact, i) => {
-                        return (<ContactInfo name={contact.name}
+                        return (<ContactInfo name={contact.Store_n}
                                              foodDescription={contact.desc}
                                              url={contact.url}
                                              key={i}
                                  />);
                     })}
+
+      <FlatList
+        data={testData}
+        renderItem={({ item }) => (
+            <View>
+          <Text>{item.Store_n}  ::::    {item.desc}</Text>
+          <Image source={{uri:item.url}} style={styles.photo} resizeMode='cover'></Image>
+          </View>
+        )}
+        keyExtractor={item => item.id}
+
+      />
+
       </SafeAreaView>
 
     );
@@ -72,6 +87,11 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+     photo:{
+    width: 180,
+    height: 180,
+    marginHorizontal: 10,
     },
   });
 
