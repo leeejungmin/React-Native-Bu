@@ -1,6 +1,7 @@
 'use strict';
  
-
+//netstat -ano | findstr :8080
+//taskkill /F /PID 12017
 const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
@@ -51,7 +52,14 @@ app.post('/jsonss', function(req, res, next) {
            //JSONData = JSON.stringify(docs);
            JSONData = docs;
         });
-     res.json(JSONData);
+     //waiting for a 3 sec
+     setTimeout(function (res,JSONData) {
+        console.log(JSONData);
+
+        }, 1000);
+
+      res.json(JSONData);
+
   
    });
 
@@ -69,6 +77,12 @@ app.post('/googlemap', function(req, res, next) {
            console.log(docs);
            JSONData = docs;
         });
+
+     //waiting for a 3 sec
+     setTimeout(function () {
+        console.log('func2');
+        }, 1000);
+
      res.json(JSONData);
   
    });
