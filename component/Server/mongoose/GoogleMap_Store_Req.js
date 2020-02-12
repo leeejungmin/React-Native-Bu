@@ -35,7 +35,29 @@ MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, func
     //var query = {"Cloth_n": 'Clothes'};
     
  //부분 검색
-   
+app.post('/test', function(req, res, next) {
+    console.log('jungmin!!!clothes');
+    //console.log(req);
+    var Clothes = req.body.Clothes;
+    console.log(Clothes);
+    var query = {"Cloth_n": Clothes};
+    console.log("## post request"); 
+
+    if(Clothes=='jacket'){
+      JSONData = 'Jacket is good uniform'
+    }else(
+      JSONData = 'Do you want pants or cap?????'
+      )
+     //waiting for a 3 sec
+     setTimeout(function (res,JSONData) {
+        console.log('this is settime',JSONData);
+
+        }, 1000);
+      console.log('--End--')
+      res.json(JSONData);
+
+  
+   });   
 
 //treating clothes information
 app.post('/jsonss', function(req, res, next) {
@@ -48,7 +70,7 @@ app.post('/jsonss', function(req, res, next) {
 
      collection_cloth.find(query).toArray(function (err, docs) {
            console.log('== Find by query');
-           console.log(docs);
+           //console.log(docs);
            //JSONData = JSON.stringify(docs);
            JSONData = docs;
         });
@@ -57,7 +79,7 @@ app.post('/jsonss', function(req, res, next) {
         console.log(JSONData);
 
         }, 1000);
-
+      console.log('--End--')
       res.json(JSONData);
 
   
