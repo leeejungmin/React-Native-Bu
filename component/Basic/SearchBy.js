@@ -19,6 +19,17 @@ import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import flatListData from './../../sty/flatlistdata';
 
+class ContactInfo extends React.Component {
+    render() {
+      //console.log(this.props.url)
+        return(
+          <View>
+          <Text>{this.props.name} </Text>
+          </View>
+        );
+    }
+}
+
 class FlatListItem extends Component{
 
     render() {
@@ -39,6 +50,7 @@ export default class Test3 extends Component {
     super(props);
     this.state ={ isLoading: false, text: '', obj : []};
     this.arrayholder = [];
+    this.dataSource = [];
     this.obj = { name: 'John', age: 30, email: 'New York@gmail.com', Clothes:'' };
   }
   SearchFilterFunction(text) {
@@ -61,12 +73,11 @@ export default class Test3 extends Component {
   searchChange = (event) => {
     this.obj.Clothes = event;
     this.setState({obj:this.obj});
-    //console.log('this vent',event);
-    if(event==null){
+      if(event==null){
      console.log('this is null');
     }
 
-     //this.obj.Clothes = event;
+
     console.log('SteteObj',this.state.obj);
     console.log('FirstInput',this.FirstInput.object);
   }
@@ -84,25 +95,27 @@ export default class Test3 extends Component {
           'Accept': 'application/json',
         },
       })
-        .then(response => response.json())
-        .then(response => {
-          var dataSource = response;
-          console.log(dataSource)
-          this.setState({
-          //arrayholder : dataSource
-          //console.log('this is array', this.dataSource);
-        })
-        .then(responseJson => {}
-          //console.log(responseJson)
-        );
-          console.log('kkk', this.arrayholder);
-        })
-        .catch(error => {
-          console.error(error);
-          console.log('errorr why?????');
-        })
-    );
-  }
+      .then(response => response.json())
+      .then(response => {
+        console.log('this is', response);
+        this.dataSource = response;
+        this.arrayholder = this.dataSource;
+        //this.state.obj.Clothes = this.dataSource;
+        console.log('this is array', this.dataSource);
+      })
+      .then(responseJson => {
+      })
+      .catch(error => {
+        console.error(error);
+        console.log('errorr why?????');
+      })
+  );}
+
+  show = () => {
+
+    var dataSource = this.dataSource;
+    this.setState({data: dataSource});
+    }
   render() {
     return (
       <SafeAreaView style={{marginTop:50, flex:1}}>
@@ -126,10 +139,12 @@ export default class Test3 extends Component {
       <Separator />
 
         <Text> {this.state.obj.Clothes}</Text>
+        <Separator />
+              <Text>{this.state.data}</Text>
         <Button
           color="#f194ff"
-          onPress={() => this.props.navigation.navigate('Playstation')}
-          title="Go to App"
+          onPress={this.show}
+          title="Show by Lenka"
         />
       </View>
       </SafeAreaView>
